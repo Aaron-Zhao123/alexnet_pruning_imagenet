@@ -183,7 +183,7 @@ class alexnet(object):
             [3, 3, 192, 256],
             [6 * 6 * 256, 4096],
             [4096, 4096],
-            [4096, 1000]
+            [4096, 1001]
         ]
         biase_shape = [
             [96],
@@ -193,7 +193,7 @@ class alexnet(object):
             [256],
             [4096],
             [4096],
-            [1000]
+            [1001]
         ]
         self.weight_shapes = kernel_shapes
         self.biase_shapes = biase_shape
