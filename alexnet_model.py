@@ -137,8 +137,9 @@ class alexnet(object):
 
     def fc_layer(self, x, name, prune = False, apply_relu = True):
         with tf.variable_scope(name, reuse = True):
-            w = tf.get_variable('w')
-            b = tf.get_variable('b')
+            with tf.device('/cpu:0'):
+                w = tf.get_variable('w')
+                b = tf.get_variable('b')
             if prune:
                 w = w * self.weights_masks[name]
             ret = tf.nn.xw_plus_b(x,w,b)
@@ -151,8 +152,9 @@ class alexnet(object):
 
         channel_axis = 3 if data_format == 'NHWC' else 1
         with tf.variable_scope(name, reuse = True):
-            w = tf.get_variable('w')
-            b = tf.get_variable('b')
+            with tf.device('/cpu:0'):
+                w = tf.get_variable('w')
+                b = tf.get_variable('b')
             if prune:
                 w = w * self.weights_masks[name]
             if split == 1:
@@ -214,15 +216,15 @@ class alexnet(object):
 
     def _init_layerwise_variables(self, w_shape, b_shape, name, w_init = None, b_init = None):
         with tf.variable_scope(name):
-            if w_init is None:
-                w_init = tf.contrib.layers.variance_scaling_initializer()
-            else:
-                w_init = tf.constant(w_init)
-            if b_init is None:
-                b_init = tf.constant_initializer()
-            else:
-                b_init = tf.constant(b_init)
             with tf.device('/cpu:0'):
+                if w_init is None:
+                    w_init = tf.contrib.layers.variance_scaling_initializer()
+                else:
+                    w_init = tf.constant(w_init)
+                if b_init is None:
+                    b_init = tf.constant_initializer()
+                else:
+                    b_init = tf.constant(b_init)
                 w = tf.get_variable('w', w_shape, initializer = w_init)
                 b = tf.get_variable('b', b_shape, initializer = b_init)
 
