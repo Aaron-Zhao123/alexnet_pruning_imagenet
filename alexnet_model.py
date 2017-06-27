@@ -45,11 +45,13 @@ class alexnet(object):
         conv1 = self.conv_layer(imgs, 'conv1', padding = 'VALID', stride = 4, prune = True)
         pool1 = self.maxpool(conv1, 'pool1', 3, 2, padding = 'VALID')
         lrn1 = self.lrn(pool1, 'lrn1')
+        print(pool1)
 
         conv2 = self.conv_layer(lrn1, 'conv2', prune = True, split = 2)
         pool2 = self.maxpool(conv2, 'pool2', 3, 2, padding = 'VALID')
         lrn2 = self.lrn(pool2, 'lrn2')
         # norm2 = self.batch_norm(conv2, 'norm2', train_phase = self.isTrain)
+        print(pool2)
 
         conv3 = self.conv_layer(lrn2, 'conv3', prune = True)
         # norm3 = self.batch_norm(conv3, 'norm3', train_phase = self.isTrain)
@@ -60,6 +62,7 @@ class alexnet(object):
         # norm5 = self.batch_norm(conv5, 'norm5', train_phase = self.isTrain)
         pool5 = self.maxpool(conv5, 'pool5', 3, 2, padding = 'VALID')
         # sys.exit()
+        print(pool5)
 
 
         flattened = tf.reshape(pool5, [-1, 6*6*256])
