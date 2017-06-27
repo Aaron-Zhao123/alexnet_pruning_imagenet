@@ -17,8 +17,8 @@ from imagenet_data import ImagenetData
 
 FLAGS = tf.app.flags.FLAGS
 
-IMAGE_SIZE = alexnet_imagenet.IMAGE_SIZE
-NUM_CLASSES = alexnet_imagenet.NUM_CLASSES + 1
+IMAGE_SIZE = preprocess_utility.IMAGE_SIZE
+NUM_CLASSES = preprocess_utility.NUM_CLASSES + 1
 NUM_EXAMPLES_PER_EPOCH_FOR_TRAIN = ult.NUM_EXAMPLES_PER_EPOCH_FOR_TRAIN
 NUM_EXAMPLES_PER_EPOCH_FOR_EVAL = ult.NUM_EXAMPLES_PER_EPOCH_FOR_EVAL
 
