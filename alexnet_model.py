@@ -77,6 +77,7 @@ class alexnet(object):
 
         fc8 = self.fc_layer(fc7_drop, 'fc8', prune = True, apply_relu = False)
         self.pred = fc8
+        return self.pred
 
     def maxpool(self, x, name, filter_size, stride, padding = 'SAME'):
         return tf.nn.max_pool(x, ksize = [1, filter_size, filter_size, 1],
