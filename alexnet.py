@@ -122,8 +122,8 @@ def inference(images):
     Logits.
   """
   isLoad = False
-  model = alexnet_model.alexnet(isLoad, images)
-  softmax_linear = model.pred
+  model = alexnet_model.alexnet(isLoad)
+  softmax_linear = model.pred(images)
   return softmax_linear
 
 
