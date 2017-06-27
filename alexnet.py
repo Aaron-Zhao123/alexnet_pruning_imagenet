@@ -13,6 +13,7 @@ import tensorflow as tf
 
 import preprocess_utility as ult
 from imagenet_data import ImagenetData
+import alexnet_model
 
 
 FLAGS = tf.app.flags.FLAGS
@@ -121,7 +122,7 @@ def inference(images):
     Logits.
   """
   isLoad = False
-  model = alexnet_model(isLoad, images)
+  model = alexnet_model.alexnet(isLoad, images)
   softmax_linear = model.pred
   return softmax_linear
 
