@@ -10,7 +10,7 @@ class alexnet(object):
     def __init__(self, isLoad):
         self._get_variables(isLoad)
         self._init_weight_masks(isLoad)
-        self.conv_network()
+        # self.conv_network()
 
     def loss(logits, labels):
         """for constructing the graph"""
