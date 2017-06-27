@@ -105,7 +105,7 @@ def distorted_inputs():
     tf.gfile.DeleteRecursively(FLAGS.train_dir)
   tf.gfile.MakeDirs(FLAGS.train_dir)
 
-  return ult_imagenet.distorted_inputs(
+  return ult.distorted_inputs(
     dataset,
     batch_size=FLAGS.batch_size,
     num_preprocess_threads=FLAGS.num_preprocess_threads)
