@@ -39,7 +39,8 @@ class alexnet(object):
         return tf.cast(tf.logical_not(tf.nn.in_top_k(self.pred, self.labels, topk)),
             tf.float32)
 
-    def conv_network(self, images):
+    def conv_network(self, images, keep_prob):
+        self.keep_prob = keep_prob
         imgs = images
 
         conv1 = self.conv_layer(imgs, 'conv1', padding = 'SAME', stride = 4, prune = True)

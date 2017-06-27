@@ -123,7 +123,7 @@ def inference(images):
   """
   isLoad = False
   model = alexnet_model.alexnet(isLoad)
-  softmax_linear = model.conv_network(images)
+  softmax_linear = model.conv_network(images, 0.5)
   return softmax_linear
 
 
