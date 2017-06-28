@@ -19,9 +19,17 @@ def traverse_train():
     data_files = dataset.data_files()
 
     if data_files is None:
-        raise ValueError('No data files found for this dataset')
+      raise ValueError('No data files found for this dataset')
     else:
-        print(data_files)
+      print(len(data_files))
+    reader = dataset.reader()
+    filename_queue = tf.train.string_input_producer(data_files,
+                                                    shuffle=False,
+                                                    capacity=16)
+    for item in data_files:
+      key,value = reader.read(item)
+      print(key)
+
 #
 #     # Create filename_queue
 #     if train:
