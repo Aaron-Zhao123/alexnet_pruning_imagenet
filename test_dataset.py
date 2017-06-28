@@ -21,13 +21,24 @@ def traverse_train():
     if data_files is None:
       raise ValueError('No data files found for this dataset')
     else:
-      print(len(data_files))
+      print("there are {} tfRecord files".format(len(data_files)))
     reader = dataset.reader()
     filename_queue = tf.train.string_input_producer(data_files,
                                                     shuffle=False,
                                                     capacity=16)
     key,value = reader.read(filename_queue)
     print(key)
+    init = tf.initialize_all_variables()
+    sess = tf.Session(config=tf.ConfigProto(
+        allow_soft_placement=True,
+        log_device_placement=FLAGS.log_device_placement))
+    sess.run(init)
+
+    # Start the queue runners.
+    tf.train.start_queue_runners(sess=sess)
+    key_value = sess.run([key])
+    print(key)
+
 
 #
 #     # Create filename_queue
