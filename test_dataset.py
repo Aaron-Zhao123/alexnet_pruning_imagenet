@@ -24,7 +24,7 @@ def traverse_train():
       print("there are {} tfRecord files".format(len(data_files)))
     reader = dataset.reader()
     filename_queue = tf.train.string_input_producer(data_files,
-                                                    shuffle=False,
+                                                    shuffle=True,
                                                     capacity=16)
     key,value = reader.read(filename_queue)
     print(key)
