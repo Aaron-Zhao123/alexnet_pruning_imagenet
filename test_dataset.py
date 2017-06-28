@@ -2,17 +2,6 @@ import tensorflow as tf
 import preprocess_utility as ult
 from imagenet_data import ImagenetData
 
-tf.app.flags.DEFINE_integer('batch_size', 32,
-                            """Number of images to process in a batch.""")
-tf.app.flags.DEFINE_integer('image_size', 224,
-                            """Provide square images of this size.""")
-tf.app.flags.DEFINE_integer('num_preprocess_threads', 4,
-                            """Number of preprocessing threads per tower. """
-                            """Please make this a multiple of 4.""")
-tf.app.flags.DEFINE_integer('num_readers', 4,
-                            """Number of parallel readers during train.""")
-IMAGE_SIZE=FLAGS.image_size
-
 FLAGS = tf.app.flags.FLAGS
 tf.app.flags.DEFINE_string('subset', 'train',
 """Either 'train' or 'validation'.""")
