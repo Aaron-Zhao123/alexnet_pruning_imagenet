@@ -28,10 +28,8 @@ def traverse_train():
                                                     capacity=16)
     key,value = reader.read(filename_queue)
     print(key)
-    init = tf.initialize_all_variables()
-    sess = tf.Session(config=tf.ConfigProto(
-        allow_soft_placement=True,
-        log_device_placement=FLAGS.log_device_placement))
+    init = tf.global_variables_initializer()
+    sess = tf.Session()
     sess.run(init)
 
     # Start the queue runners.
