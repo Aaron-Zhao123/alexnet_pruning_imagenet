@@ -26,9 +26,8 @@ def traverse_train():
     filename_queue = tf.train.string_input_producer(data_files,
                                                     shuffle=False,
                                                     capacity=16)
-    for item in data_files:
-      key,value = reader.read(item)
-      print(key)
+    key,value = reader.read(filename_queue)
+    print(key)
 
 #
 #     # Create filename_queue
