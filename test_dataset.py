@@ -33,9 +33,10 @@ def traverse_train():
     sess.run(init)
 
     # Start the queue runners.
-    tf.train.start_queue_runners(sess=sess)
-    key_value = sess.run([key])
-    print(key_value)
+    for i in range(1024):
+      tf.train.start_queue_runners(sess=sess)
+      key_value = sess.run([key])
+      print(key_value)
 
 
 #
