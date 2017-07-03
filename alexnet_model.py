@@ -70,16 +70,15 @@ class alexnet(object):
 
         flattened = tf.reshape(pool5, [-1, 6*6*256])
         fc6 = self.fc_layer(flattened, 'fc6', prune = True)
-        # fc6_drop = self.dropout_layer(fc6, 'fc6')
+        fc6_drop = self.dropout_layer(fc6, 'fc6')
         # norm6 = self.batch_norm(fc6, 'norm6', train_phase = self.isTrain)
 
-        fc7 = self.fc_layer(fc6, 'fc7', prune = True)
-        # fc7 = self.fc_layer(fc6_drop, 'fc7', prune = True)
-        # fc7_drop = self.dropout_layer(fc7, 'fc7')
+        # fc7 = self.fc_layer(fc6, 'fc7', prune = True)
+        fc7 = self.fc_layer(fc6_drop, 'fc7', prune = True)
+        fc7_drop = self.dropout_layer(fc7, 'fc7')
         # norm7 = self.batch_norm(fc7, 'norm7', train_phase = self.isTrain)
-
-        fc8 = self.fc_layer(fc7, 'fc8', prune = True, apply_relu = False)
-        # fc8 = self.fc_layer(fc7_drop, 'fc8', prune = True, apply_relu = False)
+        # fc8 = self.fc_layer(fc7, 'fc8', prune = True, apply_relu = False)
+        fc8 = self.fc_layer(fc7_drop, 'fc8', prune = True, apply_relu = False)
         self.pred = fc8
         return self.pred
 
@@ -137,9 +136,9 @@ class alexnet(object):
         return normed
 
     def dropout_layer(self, x, name):
-        return layers_lib.dropout(
-          x, self.keep_prob, is_training= (not self.isLoad), scope=name)
-        # return tf.nn.dropout(x, self.keep_prob)
+        # return layers_lib.dropout(
+        #   x, self.keep_prob, is_training= (not self.isLoad), scope=name)
+        return tf.nn.dropout(x, self.keep_prob)
 
     def fc_layer(self, x, name, prune = False, apply_relu = True):
         with tf.variable_scope(name, reuse = True):
