@@ -2,6 +2,7 @@ import tensorflow as tf
 import numpy as np
 import pickle
 import sys
+from tensorflow.contrib.layers.python.layers import layers as layers_lib
 
 """
 gives back self.pred, self.
@@ -10,6 +11,7 @@ class alexnet(object):
     def __init__(self, isLoad):
         self._get_variables(isLoad)
         self._init_weight_masks(isLoad)
+        self.isLoad = isLoad
         # self.conv_network()
 
     def loss(logits, labels):
@@ -68,11 +70,11 @@ class alexnet(object):
 
         flattened = tf.reshape(pool5, [-1, 6*6*256])
         fc6 = self.fc_layer(flattened, 'fc6', prune = True)
-        fc6_drop = self.dropout_layer(fc6)
+        fc6_drop = self.dropout_layer(fc6, 'fc6')
         # norm6 = self.batch_norm(fc6, 'norm6', train_phase = self.isTrain)
 
-        fc7 = self.fc_layer(fc6_drop, 'fc7', prune = True)
-        fc7_drop = self.dropout_layer(fc7)
+        fc7 = self.fc_layer(flattened, 'fc7', prune = True)
+        fc7_drop = self.dropout_layer(fc7, 'fc7')
         # norm7 = self.batch_norm(fc7, 'norm7', train_phase = self.isTrain)
 
         fc8 = self.fc_layer(fc7_drop, 'fc8', prune = True, apply_relu = False)
@@ -132,8 +134,10 @@ class alexnet(object):
             normed = tf.nn.batch_normalization(x, mean, var, beta, gamma, epsilon)
         return normed
 
-    def dropout_layer(self, x):
-        return tf.nn.dropout(x, self.keep_prob)
+    def dropout_layer(self, x, name):
+        return layers_lib.dropout(
+          x, self.keep_prob, is_training= (not self.isLoad), scope=name)
+        # return tf.nn.dropout(x, self.keep_prob)
 
     def fc_layer(self, x, name, prune = False, apply_relu = True):
         with tf.variable_scope(name, reuse = True):
