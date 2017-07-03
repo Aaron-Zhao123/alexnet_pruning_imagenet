@@ -73,7 +73,7 @@ class alexnet(object):
         fc6_drop = self.dropout_layer(fc6, 'fc6')
         # norm6 = self.batch_norm(fc6, 'norm6', train_phase = self.isTrain)
 
-        fc7 = self.fc_layer(flattened, 'fc7', prune = True)
+        fc7 = self.fc_layer(fc6_drop, 'fc7', prune = True)
         fc7_drop = self.dropout_layer(fc7, 'fc7')
         # norm7 = self.batch_norm(fc7, 'norm7', train_phase = self.isTrain)
 
