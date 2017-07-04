@@ -48,7 +48,7 @@ NUM_EXAMPLES_PER_EPOCH_FOR_EVAL = 1000
 
 FLAGS = tf.app.flags.FLAGS
 
-tf.app.flags.DEFINE_integer('batch_size', 32,
+tf.app.flags.DEFINE_integer('batch_size', 128,
                             """Number of images to process in a batch.""")
 tf.app.flags.DEFINE_integer('image_size', 224,
                             """Provide square images of this size.""")
