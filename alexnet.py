@@ -103,7 +103,7 @@ def distorted_inputs():
   dataset = ImagenetData(subset=FLAGS.subset)
   assert dataset.data_files()
   if tf.gfile.Exists(FLAGS.train_dir):
-    print("found train dir model")
+    print("train dir exists")
     # tf.gfile.DeleteRecursively(FLAGS.train_dir)
   # tf.gfile.MakeDirs(FLAGS.train_dir)
 
