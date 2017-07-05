@@ -207,8 +207,11 @@ def train():
     # Build the summary operation from the last tower summaries.
     summary_op = tf.summary.merge(summaries)
 
-    # Build an initialization operation to run below.
-    init = tf.initialize_all_variables()
+    if (FLAGS.store_from_checkpoint):
+        pass
+    else:
+        # Build an initialization operation to run below.
+        init = tf.initialize_all_variables()
 
     # Start running operations on the Graph. allow_soft_placement must be set to
     # True to build towers on GPU, as some of the ops do not have GPU
