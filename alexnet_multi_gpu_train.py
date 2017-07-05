@@ -25,7 +25,7 @@ tf.app.flags.DEFINE_boolean('log_device_placement', False,
                             """Whether to log device placement.""")
 tf.app.flags.DEFINE_string('subset', 'train',
                            """Either 'train' or 'validation'.""")
-tf.app.flags.DEFINE_boolean('store_from_checkpoint', False,
+tf.app.flags.DEFINE_boolean('load_from_checkpoint', False,
                             """Whether to log device placement.""")
 
 def tower_loss(scope):
@@ -207,7 +207,7 @@ def train():
     # Build the summary operation from the last tower summaries.
     summary_op = tf.summary.merge(summaries)
 
-    if (FLAGS.store_from_checkpoint):
+    if (FLAGS.load_from_checkpoint):
         pass
     else:
         # Build an initialization operation to run below.
@@ -220,7 +220,7 @@ def train():
         allow_soft_placement=True,
         log_device_placement=FLAGS.log_device_placement))
 
-    if (FLAGS.store_from_checkpoint):
+    if (FLAGS.load_from_checkpoint):
         checkpoint_path = os.path.join(FLAGS.train_dir, 'model.ckpt')
         saver.restore(sess, checkpoint_path)
     else:
