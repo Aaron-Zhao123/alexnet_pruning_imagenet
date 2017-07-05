@@ -25,6 +25,8 @@ tf.app.flags.DEFINE_boolean('log_device_placement', False,
                             """Whether to log device placement.""")
 tf.app.flags.DEFINE_string('subset', 'train',
                            """Either 'train' or 'validation'.""")
+tf.app.flags.DEFINE_boolean('store_from_checkpoint', False,
+                            """Whether to log device placement.""")
 
 def tower_loss(scope):
   """Calculate the total loss on a single tower running the CIFAR model.
@@ -214,7 +216,12 @@ def train():
     sess = tf.Session(config=tf.ConfigProto(
         allow_soft_placement=True,
         log_device_placement=FLAGS.log_device_placement))
-    sess.run(init)
+
+    if (FLAGS.store_from_checkpoint):
+        checkpoint_path = os.path.join(FLAGS.train_dir, 'model.ckpt')
+        saver.restore(sess, checkpoint_path)
+    else:
+        sess.run(init)
 
     # Start the queue runners.
     tf.train.start_queue_runners(sess=sess)
