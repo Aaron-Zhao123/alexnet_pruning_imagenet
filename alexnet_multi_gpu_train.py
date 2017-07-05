@@ -221,8 +221,8 @@ def train():
         log_device_placement=FLAGS.log_device_placement))
 
     if (FLAGS.load_from_checkpoint):
-        checkpoint_path = os.path.join(FLAGS.train_dir, 'model.ckpt')
-        saver.restore(sess, checkpoint_path)
+        # checkpoint_path = os.path.join(FLAGS.train_dir, 'model.ckpt')
+        saver.restore(sess, tf.train.latest_checkpoint(FLAGS.train_dir))
     else:
         sess.run(init)
 
